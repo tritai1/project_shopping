@@ -1,0 +1,364 @@
+/* Tổng thể cho header */
+header.header {
+    position: fixed; /* Cố định header ở trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Chiều cao header */
+    background-color: #ffffff; /* Màu nền */
+    z-index: 200; /* Đảm bảo header luôn ở trên */
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-bottom: 2px solid #e9ecef; /* Viền dưới mỏng */
+  }
+  
+  /* Căn chỉnh và định dạng logo */
+  .inner-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Logo nằm bên trái */
+    margin-left: 20px;
+  }
+  
+  .inner-logo img {
+    width: 50px; /* Kích thước logo vừa phải */
+    height: auto;
+    margin-right: 10px; /* Khoảng cách giữa logo và chữ */
+    border-radius: 50%; /* Logo dạng hình tròn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng mờ cho logo */
+  }
+  
+  .inner-logo span {
+    font-size: 20px; /* Kích thước chữ lớn */
+    font-weight: bold;
+    color: rgb(65, 67, 194);
+    text-transform: uppercase; /* Chữ in hoa */
+    letter-spacing: 1px; /* Khoảng cách giữa các ký tự */
+  }
+  
+  /* Responsive cho màn hình nhỏ */
+  @media (max-width: 768px) {
+    .inner-logo img {
+      width: 40px; /* Thu nhỏ logo */
+    }
+  
+    .inner-logo span {
+      font-size: 18px; /* Thu nhỏ chữ */
+    }
+  }
+  
+  /* Slider tổng thể */
+  .slider {
+    position: fixed; /* Để slider luôn nằm cố định khi cuộn */
+    top: 100px; /* Đặt ngay dưới header */
+    left: 0; /* Căn sát mép trái màn hình */
+    width: 220px; /* Chiều rộng thanh slider */
+    height: calc(100vh - 100px); /* Chiều cao slider chiếm toàn bộ màn hình trừ chiều cao header */
+    background: linear-gradient(to left, #25162c, #5a1247);
+    border-right: 1px solid #e0e0e0; /* Viền mỏng phân cách với nội dung */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng nhẹ */
+    z-index: 100; /* Bảo đảm slider không bị che bởi nội dung khác */
+    overflow: auto; /* Kích hoạt cuộn nội dung nếu cần */
+    color: #e0e0e0;
+  }
+  
+  /* Nội dung bên trong slider */
+  .slider p {
+    margin: 20px; /* Khoảng cách bên trong cho văn bản */
+    color: #ffffff; /* Màu chữ trắng */
+    font-size: 14px; /* Kích thước chữ vừa phải */
+    text-align: center; /* Căn giữa văn bản */
+    line-height: 1.5; /* Khoảng cách dòng thoáng */
+  }
+  
+  /* Responsive cho màn hình nhỏ */
+  @media (max-width: 768px) {
+    .slider {
+      width: 60px; /* Giảm chiều rộng slider cho màn hình nhỏ */
+    }
+  
+    .slider p {
+      font-size: 12px; /* Giảm kích thước chữ */
+    }
+  }
+  
+  /* Nội dung chính */
+  main.content {
+    margin-top: 100px; /* Để không bị header che */
+    margin-left: 220px; /* Để không bị slider che */
+    padding: 20px; 
+  
+    
+  }
+  
+  /* H1 trong nội dung chính */
+  main.content h1 {
+    font-size: 24px;
+    color: #343a40; /* Màu chữ đậm */
+    margin-top: 20px;
+  }
+  /* Slider Styling */
+.slider {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 100px);
+  background: linear-gradient(to left, #25162c, #5a1247);
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: auto;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+}
+
+.slider .inner-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slider .inner-menu ul li {
+  margin-bottom: 15px;
+}
+
+.slider .inner-menu ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.slider .inner-menu ul li a:hover {
+  background-color: #495057;
+  color: #f8f9fa;
+}
+
+.slider .inner-menu ul li a.active {
+  background-color: #17a2b8;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Styling the pagination container */
+nav[aria-label='Page navigation example'] {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Pagination list */
+ul.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Pagination items */
+ul.pagination li.page-item {
+  display: inline;
+}
+
+/* Links styling */
+ul.pagination li a.page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Active and hover states */
+ul.pagination li a.page-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+ul.pagination li.page-item.active a.page-link {
+  background-color: #007bff;
+  color: #fff;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+/* Disabled buttons (Previous/Next) */
+ul.pagination li.page-item.disabled a.page-link {
+  color: #ccc;
+  pointer-events: none;
+}
+
+/* Special characters styling (&laquo; and &raquo;) */
+ul.pagination li a.page-link span[aria-hidden='true'] {
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+form[form-change-multi] .form-control,
+form[form-change-multi] button {
+  height: 40px; /* Đặt chiều cao cố định giống nhau */
+  line-height: 40px; /* Đảm bảo nội dung căn giữa theo chiều dọc */
+}
+
+form[form-change-multi] button {
+  padding: 0 20px; /* Tạo khoảng cách ngang hợp lý */
+}
+
+/* Vị trí hiển thị của thông báo */
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 9999;
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Hiệu ứng trượt và mờ dần */
+}
+
+/* Hiển thị thông báo (trạng thái mặc định) */
+[show-alert].visible {
+  transform: translateX(0); /* Giữ vị trí ban đầu */
+  opacity: 1;              /* Hiển thị rõ */
+}
+
+/* Ẩn thông báo (trạng thái ẩn) */
+[show-alert].alert-hidden {
+  transform: translateX(100%); /* Trượt ra khỏi màn hình */
+  opacity: 0;                 /* Mờ dần */
+  pointer-events: none;       /* Không cho tương tác */
+}
+
+/* Nút đóng thông báo */
+[show-alert] [close-alert] {
+  background-color: #ffffffc4; /* Nền trắng trong suốt */
+  display: inline-block;       /* Khối dòng */
+  width: 24px;                 /* Chiều rộng nút */
+  height: 24px;                /* Chiều cao nút */
+  line-height: 24px;           /* Căn giữa chữ theo chiều dọc */
+  text-align: center;          /* Căn giữa chữ theo chiều ngang */
+  font-weight: 600;            /* Chữ đậm */
+  border-radius: 50%;          /* Bo tròn góc */
+  cursor: pointer;             /* Con trỏ khi hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+}
+
+/* Product Container */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Product Image */
+.product-image {
+  flex: 1;
+  max-width: 50%;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.product-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.product-image img:hover {
+  transform: scale(1.05);
+}
+
+/* Product Details */
+.product-details {
+  flex: 1;
+  max-width: 50%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-details h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2a5298;
+}
+
+.product-details .price {
+  font-size: 1.5rem;
+  color: #e63946;
+  margin-bottom: 1rem;
+}
+
+.product-details .description {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.product-details .stock {
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.product-details .stock b {
+  color: #28a745;
+}
+
+.product-details .status {
+  margin-bottom: 1rem;
+}
+
+.product-details .badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.badge-success {
+  background-color: #28a745;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}
+
+.product-details .rating {
+  margin-bottom: 1.5rem;
+  color: #f4a261;
+}
+
+.product-details a {
+  display: inline-block;
+  background: #2a5298;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.product-details a:hover {
+  background: #1e3c72;
+}
+/* css phẩn tạo mới sản phẩm  */

@@ -1,0 +1,5 @@
+#  file này giúp khi chúng ta loại bỏ những thư mục chứa thông tin bảo mật hoặc thư mục không cần thiết để không đấy lên
+# tránh nặng file 
+# giúp bảo mật
+/node_modules
+.env

@@ -1,0 +1,37 @@
+extends ../../layout/default.pug
+
+block main 
+  main.product-page
+      .product-container
+        //- Phần hình ảnh sản phẩm
+        .product-images
+          .main-image
+            img(src=`${product.thumbnail}` alt="Product Image")
+          .thumbnail-images
+            img(src="https://via.placeholder.com/100" alt="Thumbnail 1")
+            img(src="https://via.placeholder.com/100" alt="Thumbnail 2")
+            img(src="https://via.placeholder.com/100" alt="Thumbnail 3")
+            img(src="https://via.placeholder.com/100" alt="Thumbnail 4")
+
+        //- Phần thông tin sản phẩm
+        .product-info
+          h1.product-title #{product.title}
+          p.product-rating ⭐⭐⭐⭐⭐ | (4.8/5) | 12 đánh giá | 50 đã bán
+          p.product-price #{product.price}$
+          p.product-discount Giá đã giảm: <span class="discount">#{product.discountPercentage}</span>
+          .product-stock
+            span Còn hàng: <b>#{product.stock}</b>
+          //- Chọn số lượng
+          .quantity
+            label(for="quantity") Số lượng:
+            input#quantity(type="number" min="1" max="12" value="1")
+
+          //- Nút thao tác
+          .product-buttons
+            button.buy-now Mua ngay
+            button.add-to-cart Thêm vào giỏ hàng
+
+      //- Thông tin chi tiết sản phẩm
+      .product-details
+        h2 Thông tin chi tiết
+        p #{product.description}

@@ -1,0 +1,27 @@
+extends ../../layout/layout.pug
+
+block mains
+  main.content
+    main.product-container
+      //- Product Image
+      .product-image
+        img(src=`${product.thumbnail}` alt=`${product.title}`)
+
+      //- Product Details
+      .product-details
+        h2 #{product.title}
+        p.price #{product.price}
+        if(product.stock)
+          div(class="stock")
+            span Số lượng: <b>#{product.stock}</b>
+        p.description #{product.description}
+        if(product.status)
+          div(class="status")
+            span Trạng thái: 
+              if(product.status === "active")
+                span(class="badge badge-success") Hoạt động
+              else 
+                span(class="badge badge-danger") Không hoạt động
+        
+        p.rating Rating: ⭐⭐⭐⭐☆ (4.5/5)
+        a(href=`${variableAll}/product/edit/${product.id}` type="button") Chỉnh sửa 

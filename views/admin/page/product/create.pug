@@ -1,0 +1,41 @@
+extends ../../layout/layout.pug
+include ../../mixin/alert.pug
+block mains
+  main.content
+    +alert-error(5000)
+    h1 Tạo mới sản phẩm
+    form(action=`${variableAll}/product/create` method="POST" enctype="multipart/form-data")
+        div.form-group
+            label(for="title") Tiêu đề
+            input#title(type="text" name="title" required placeholder="Nhập tiêu đề" class="form-control")
+        div.form-group
+            label(for="description") Mô tả
+            textarea#description(name="description" rows="4" required placeholder="Nhập mô tả" class="form-control")
+        div.form-group
+            label(for="price") Giá  
+            input#price(type="number" name="price" step="0.01" required placeholder="Nhập giá" class="form-control")
+        div.form-group
+            label(for="discountPercentage") Phần trăm giảm giá
+            input#discountPercentage(type="number" name="discountPercentage" step="0.01" min="0" max="100" required placeholder="Nhập % giảm giá" class="form-control")
+        div.form-group
+            label(for="stock") Tồn kho
+            input#stock(type="number" name="stock" min="0" required placeholder="Nhập số lượng tồn kho" class="form-control")
+        div(class="form-group" form-change-multi)
+            label(for="thumbnail") Ảnh đại diện
+            input#thumbnail(type="file" name="thumbnail" required placeholder="Nhập URL ảnh đại diện" class="form-control-file" accept="img/*" update-img)
+            img(src="", uploads-img-preview width="100px", height="auto") 
+            button(class="alert-danger" delete-img) x
+        div.form-group
+            label(for="status") Trạng thái
+            select#status(name="status" required class="form-control")
+              option(value="active") active
+              option(value="inactive") inactive  
+        div.form-group
+            label(for="position") Vị trí
+            input#position(type="number" name="position" min="0" placeholder="Nhập vị trí" class="form-control")
+        div.form-group
+            label(for="deletedAt") Thời gian xóa
+            input#deletedAt(type="datetime-local" name="deletedAt" placeholder="Chọn thời gian xóa")
+        div.form-group
+            button(type="submit") Tạo sản phẩm
+    

@@ -1,0 +1,23 @@
+include ../mixins/search.pug
+header.header 
+  .container 
+    .row.align-item-center 
+      .col3
+        .inner-logo
+          a(href="/")
+            img(src="/img/app-store.png", alt="logo")
+      .col-3 
+        +search() 
+
+      .col9
+        .inner-memu
+          ul 
+            li 
+              a(href="/") Home
+                img(src="/img/home.png", alt="" width="40" height="40")
+            li  
+              a(href="/product") Product
+                img(src="/img/product.png", alt="" width="40" height="40")
+            li 
+              a(href="/cart") 
+                img(src="/img/cart.png", alt="" width="40" height="40")

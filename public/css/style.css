@@ -1,0 +1,410 @@
+/* Tổng quát */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header */
+  header.header {
+    background-color: #f8f9fa; /* Màu nền nhạt */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng */
+    padding: 10px 0;
+  }
+  
+  header .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  header .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Logo */
+  .inner-logo img {
+    max-height: 50px; /* Điều chỉnh kích thước logo */
+  }
+  
+  .inner-logo a {
+    display: inline-block;
+  }
+  
+  /* Menu */
+  .inner-memu ul {
+    list-style: none; /* Loại bỏ dấu chấm đầu dòng */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Sắp xếp theo hàng ngang */
+    gap: 20px; /* Khoảng cách giữa các mục */
+  }
+  
+  .inner-memu li a {
+    text-decoration: none; /* Loại bỏ gạch dưới */
+    color: #333; /* Màu chữ */
+    font-weight: bold; /* In đậm chữ */
+    transition: color 0.3s; /* Hiệu ứng hover mượt mà */
+  }
+  
+  .inner-memu li a:hover {
+    color: #007bff; /* Màu chữ khi hover */
+  }
+  .footer {
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+    font-size: 14px;
+    color: #6c757d;
+    /* height: 500px; */
+  }
+
+
+  .home img {
+    display: block; /* Đảm bảo không có khoảng trắng mặc định */
+    width: 100%; /* Hình ảnh chiếm toàn bộ chiều rộng */
+    height: auto; /* Duy trì tỉ lệ khung hình */
+    margin: 0; /* Xóa khoảng cách bên ngoài */
+    padding: 0; /* Xóa khoảng cách bên trong */
+  }
+  
+
+
+  /* Container styling */
+.container.my-3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Flexbox row */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Product item card */
+  .produc-titem {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: calc(33.333% - 20px); /* 3 items per row with gap */
+  }
+  
+  .produc-titem:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Product image */
+  .inner-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  
+  /* Product content */
+  .inner-content {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  /* Product title */
+  .inner-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* New price */
+  .inner-price-new {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 5px;
+  }
+  
+  /* Old price */
+  .inner-price-old {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+  
+  /* Discount badge */
+  .inner-discount {
+    font-size: 14px;
+    color: #27ae60;
+    background-color: #e8f5e9;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .produc-titem {
+      width: calc(50% - 20px); /* 2 items per row for tablets */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .produc-titem {
+      width: 100%; /* 1 item per row for mobile */
+    }
+  }
+
+  /* css cho bên giao diện admin */
+  /* Đặt phần tìm kiếm và danh sách sản phẩm trên cùng một hàng */
+/* Toàn bộ form tìm kiếm */
+#form-search {
+  width: 100%; /* Đặt chiều rộng cho form */
+  max-width: 600px; /* Giới hạn chiều rộng tối đa */
+  margin: 0 auto; /* Canh giữa form */
+  display: flex; /* Đặt flexbox để căn chỉnh các phần tử */
+  border: 2px solid #7db3e5; /* Viền màu xanh lá */
+  border-radius: 25px; /* Làm viền tròn */
+  overflow: hidden; /* Ẩn phần thừa nếu có */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+/* Input tìm kiếm */
+#form-search .form-control {
+  flex: 1; /* Input chiếm toàn bộ không gian còn lại */
+  border: none; /* Xóa viền gốc */
+  padding: 10px 15px; /* Khoảng cách trong */
+  font-size: 16px; /* Cỡ chữ */
+  outline: none; /* Xóa viền khi focus */
+}
+
+/* Nút tìm kiếm */
+#form-search .btn {
+  background-color: #92b6f8; /* Màu nền xanh lá */
+  color: white; /* Màu chữ */
+  border: none; /* Xóa viền gốc */
+  padding: 10px 20px; /* Khoảng cách trong */
+  font-size: 16px; /* Cỡ chữ */
+  cursor: pointer; /* Con trỏ dạng nút */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+#form-search .btn:hover {
+  background-color: #3a508f; /* Màu đậm hơn khi hover */
+}
+
+
+/* Styling the pagination container */
+nav[aria-label='Page navigation example'] {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Pagination list */
+ul.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Pagination items */
+ul.pagination li.page-item {
+  display: inline;
+}
+
+/* Links styling */
+ul.pagination li a.page-link {
+  display: block;
+  padding: 10px 15px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Active and hover states */
+ul.pagination li a.page-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+ul.pagination li.page-item.active a.page-link {
+  background-color: #007bff;
+  color: #fff;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+/* Disabled buttons (Previous/Next) */
+ul.pagination li.page-item.disabled a.page-link {
+  color: #ccc;
+  pointer-events: none;
+}
+
+/* Special characters styling (&laquo; and &raquo;) */
+ul.pagination li a.page-link span[aria-hidden='true'] {
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+/* Product Page Container */
+.product-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Product Container */
+.product-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Product Images */
+.product-images {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.main-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail-images {
+  display: flex;
+  gap: 1rem;
+}
+
+.thumbnail-images img {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-images img:hover {
+  transform: scale(1.1);
+  border-color: #f53d2d;
+}
+
+/* Product Info */
+.product-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.product-rating {
+  color: #f4a261;
+  font-size: 1rem;
+}
+
+.product-price {
+  font-size: 2rem;
+  color: #f53d2d;
+  font-weight: bold;
+}
+
+.product-discount {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.product-stock b {
+  color: #28a745;
+}
+
+/* Quantity */
+.quantity label {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.quantity input {
+  width: 50px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.product-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.buy-now {
+  background: #f53d2d;
+}
+
+button.buy-now:hover {
+  background: #c72e1f;
+}
+
+button.add-to-cart {
+  background: #ff9000;
+}
+
+button.add-to-cart:hover {
+  background: #cc7300;
+}
+
+/* Product Details */
+.product-details {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-details p {
+  color: #555;
+  line-height: 1.6;
+}

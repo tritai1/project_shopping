@@ -1,0 +1,12 @@
+mixin search(keyword)
+   form#form-search
+    .input-group
+        input.form-control(
+            type="text"
+            placeholder="Nhập từ khóa tìm kiếm"
+            name="keyword"
+            value=keyWord
+        )
+        .input-group-append
+           button.btn.btn-success(type="submit")
+            img(src="/img/search.png", alt="" width="30" height="30" )

@@ -1,0 +1,36 @@
+extends ../../layout/default.pug
+include ../../mixins/item-title.pug
+
+
+block main
+  .container.my-3
+    .row
+      .col-9
+        +boxhead("Danh sách sản phẩm")
+    .row
+      each item in product
+        .produc-titem
+          a(href=`/product/detail/${item.slug}`) 
+            .inner-img
+              img(src=`${item.thumbnail}`, alt="phone 16 price")
+            .inner-content
+              h3.inner-title #{item.title}
+              .inner-descriptiom #{item.description}
+              .inner-price-new #{item.priceNew}
+              .inner-price-old #{item.price}
+              .inner-discount #{item.discountPercentage}%
+    
+  nav(aria-label='Page navigation example')
+      ul.pagination
+        li.page-item
+          button(class ="page-link" href='', aria-label='Previous')
+            span(aria-hidden='true') &laquo;  
+        - for(var i = 1; i <= pagination.totalPage; i++)    
+            li(class = `page-item ${pagination.currentPage == i ? "active" : " " }`  )
+              button(class= "page-link"
+              button-pagination = i
+              ) #{i} 
+        li.page-item
+          button(class = "page-link" href='#', aria-label='Next')
+            span(aria-hidden='true') &raquo;        
+            
