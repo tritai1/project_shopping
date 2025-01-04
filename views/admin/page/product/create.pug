@@ -13,7 +13,7 @@ block mains
             textarea#description(name="description" rows="4" required placeholder="Nhập mô tả" class="form-control")
         div.form-group
             label(for="price") Giá  
-            input#price(type="number" name="price" step="0.01" required placeholder="Nhập giá" class="form-control")
+            input#price(type="number" name="price" step="0.01" required placeholder="Nhập giá"  min="0" max="10000" class="form-control")
         div.form-group
             label(for="discountPercentage") Phần trăm giảm giá
             input#discountPercentage(type="number" name="discountPercentage" step="0.01" min="0" max="100" required placeholder="Nhập % giảm giá" class="form-control")

@@ -18,8 +18,7 @@ if(buttonStatusChange.length > 0){
             changeStatusPath.action = action;
             changeStatusPath.submit();
         })
-    })
-    
+    }) 
 }
 
 // tính năng xóa 

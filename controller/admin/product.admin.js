@@ -218,10 +218,10 @@ module.exports.createProduct = async (req, res)=>{
     }else {
         req.body.position = parseInt(req.body.position)
     }
-    if(req.file){
-      // luu anh vao database
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
+    // if(req.file){
+    //   // luu anh vao database
+    //     req.body.thumbnail = `/uploads/${req.file.filename}`; // upload duoi dang local
+    // }
     // lưu dữ liệu người dùng nhập vào database
     const product = new Product(req.body);
     await product.save()
