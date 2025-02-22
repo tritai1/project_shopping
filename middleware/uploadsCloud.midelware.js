@@ -1,11 +1,10 @@
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({ 
-    cloud_name: 'dvcmtswb1', 
-    api_key: '639684979637375', 
-    api_secret: 'IPtms9e16H8vDLlLVMMscvOi3sg'
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.CLOUD_KEY, 
+    api_secret: process.env.API_SECRET
 }); // cấu hình cloudinary // giúp upload ảnh lên cloudinary online
 const streamifier = require('streamifier');
-
 
 module.exports.uploads = (req, res, next)=>{
     if (req.file) {

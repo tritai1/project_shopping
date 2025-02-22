@@ -5,23 +5,23 @@ block mains
     main.product-container
       //- Product Image
       .product-image
-        img(src=`${product.thumbnail}` alt=`${product.title}`)
+        img(src=`${record.thumbnail}` alt=`${record.title}`)
 
       //- Product Details
       .product-details
-        h2 #{product.title}
-        p.price #{product.price}
-        if(product.stock)
+        h2 #{record.title}
+        p.price #{record.price}
+        if(record.stock)
           div(class="stock")
-            span Số lượng: <b>#{product.stock}</b>
-        p.description !{product.description}
-        if(product.status)
+            span Số lượng: <b>#{record.stock}</b>
+        p.description !{record.description}
+        if(record.status)
           div(class="status")
             span Trạng thái: 
-              if(product.status === "active")
+              if(record.status === "active")
                 span(class="badge badge-success") Hoạt động
               else 
                 span(class="badge badge-danger") Không hoạt động
         
         p.rating Rating: ⭐⭐⭐⭐☆ (4.5/5)
-        a(href=`${variableAll}/product/edit/${product.id}` type="button") Chỉnh sửa 
+        a(href=`${variableAll}/product-category/edit/${record.id}` type="button") Chỉnh sửa 

@@ -34,3 +34,27 @@ if(buttonPagination.length > 0){
         })
     })
 }
+
+const sort = document.querySelectorAll("[sort]");
+if(sort.length > 0){
+    const selectSort = document.querySelector("[select-sort]");
+    const selectClear = document.querySelector("[select-clear]");
+    const url = new URL(window.location.href);
+    selectSort.addEventListener("change", (e)=>{
+        const [sortKey, sortValue] = e.target.value.split("-");
+        url.searchParams.set("sortKey", sortKey);
+        url.searchParams.set("sortValue", sortValue);
+        window.location.href = url.href;
+    })
+    selectClear.addEventListener("click", ()=>{
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+        window.location.href = url.href;
+    })
+  const sortKey = url.searchParams.get("sortKey");
+  const sortValue = url.searchParams.get("sortValue");
+  if(sortKey && sortValue){
+    const position = selectSort.querySelector(`[value="${sortKey}-${sortValue}"]`);
+    position.selected = true;
+  }
+}

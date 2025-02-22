@@ -49,8 +49,14 @@ module.exports.product = async (req, res) => {
     const products = await Product.find(find);
     const totalPage =  Math.ceil(products.length/ojectPage.itemPage);
     ojectPage.totalPage = totalPage;
-
-    const product = await Product.find(find).sort({position: "desc"}).limit(ojectPage.itemPage).skip( ojectPage.skip);
+    // tính năng lọc theo giá tăng dần hoặc giảm dần
+    const sort = {};
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue;
+    }else { 
+        sort.position = "desc";
+    }
+    const product = await Product.find(find).sort(sort).limit(ojectPage.itemPage).skip( ojectPage.skip);
 
     const newProducts = product.map(item => {  // su dung map de tinh toan gia thep phan tram giam gia discountPercentage: phan tram giam gia
         item.priceNew = (item.price*(100 - item.discountPercentage)/100).toFixed(0); // ham tinh gia theo phan tram giam gia lay ra gia moi  

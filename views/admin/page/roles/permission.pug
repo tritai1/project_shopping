@@ -1,0 +1,57 @@
+extends ../../layout/layout.pug
+include ../../mixin/alert.pug
+block mains
+  main.content
+    h1.col-4 Phân quyền
+    +alert-success(5000)
+    +alert-error(5000)
+    if data
+      div.text-right.mb-3
+        button(class="btn btn-primary" type="submit" button-submit ) Cập nhật
+      table(class="table table-hover table-sm" table-rolePermission)
+        thead
+          tr
+            th Tính năng
+            each item in data
+              th.text-center #{item.title}
+        tbody
+          tr(data-name="id")
+           td
+           each item in data
+            td(class="text-center" display="none")
+              input(type="text" value=item.id )
+          tr
+            td(colspan="3")
+              b Danh mục sản phẩm
+          tr(data-name="product-category-view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-category-create")
+            td Tạo mới
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-category-delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-category-edit")
+            td Sửa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+    else
+      p Không có quyền nào tồn tại
+      .col-4 
+        a( href =`${variableAll}/rolePower/creates`
+          class=`btn btn-sm ml-1 btn-outline-success`
+          ) Tạo mới nhóm quyền
+  form(id="form-change-permission"
+        method="POST"
+        action=`${variableAll}/rolePower/permission?_method=PATCH`)
+    div(class="form-group" display="none")
+      input(type="text" name="permission" class="form-control") 
+  script(src="/admin/js/rolePermission.js")

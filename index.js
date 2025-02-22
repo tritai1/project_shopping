@@ -1,4 +1,5 @@
 const express = require('express');  
+const path = require("path")
 var methodOverride = require('method-override') // nhúng thư viện method-override giúp chúng ta có thể sử dụng được phương thức patch, put, delete
 var bodyParser = require('body-parser') // nhúng thư viện body-parser để có thể lấy ra được các nội dung chứa trong body
 // ở đây nếu chúng muốn bảo mật thì phải nhúng thư viện [ require('dotenv').config() ] khi chúng ta khai báo ở file env;
@@ -36,6 +37,9 @@ app.locals.variableAll = systemConfig.firstPath; // app,locals tạo tra các bi
 
 // nhung file tĩnh 
 app.use(express.static(`${__dirname}/public`));
+
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
 
 //goi routerAdmin 
 adminRouter(app)

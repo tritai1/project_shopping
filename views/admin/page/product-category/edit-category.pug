@@ -1,0 +1,47 @@
+extends ../../layout/layout.pug
+include ../../mixin/selected-tree.pug
+include ../../mixin/alert.pug
+block mains
+  main.content 
+    +alert-success(5000)
+    h1 chinh sua danh muc
+    form(action=`${variableAll}/product-category/edit/${data.id}?_method=PATCH` method="POST" enctype="multipart/form-data")
+        div.form-group
+            label(for="title") Tiêu đề
+            input#title(type="text" name="title"  placeholder="Nhập tiêu đề" class="form-control" value = data.title)
+        div.form-group
+            select(name="parent_id" id="parent_id" class="form-control")
+              option(value="") -- Chon danh muc cha --   
+              if(record)
+                +selected-tree(record, 1, data.parent_id)
+        div.form-group
+            label(for="description") Mô tả
+            textarea#description(name="description" rows="4"  placeholder="Nhập mô tả" class="form-control" ) #{data.description}
+        div(class="form-group" form-change-multi)
+            label(for="thumbnail") Ảnh đại diện
+            input#thumbnail(type="file" name="thumbnail"  placeholder="Nhập URL ảnh đại diện" class="form-control-file" accept="img/*" update-img)
+            img(src=`${data.thumbnail}`, uploads-img-preview width="100px", height="auto") 
+            button(class="alert-danger" delete-img) x
+        div(class = "form-group form-check form-check-inline")
+            input(type="radio"
+                  class = "from-check-input"
+                  id = "statusActive"
+                  name = "status"
+                  value = "active"
+                  checked=(data.status == "active" ? true : false )
+                 )  
+            label(for="statusActive" class="form-check-lable") Hoạt động
+        div(class = "form-group form-check form-check-inline")
+            input(type="radio"
+                  class = "from-check-input"
+                  id = "statusInActive"
+                  name = "status"
+                  value = "inactive"
+                  checked=(data.status == "inactive" ? true : false )
+                 )  
+            label(for="statusActive" class="form-check-lable") Dừng hoạt động  
+        div.form-group
+            label(for="position") Vị trí
+            input#position(type="number" name="position" min="0" placeholder="Nhập vị trí" class="form-control" value = data.position)
+        div.form-group
+            button(type="submit") chỉnh sửa danh mục

@@ -1,5 +1,6 @@
 extends ../../layout/default.pug
 include ../../mixins/item-title.pug
+include ../../mixins/sort.pug
 
 
 block main
@@ -7,6 +8,12 @@ block main
     .row
       .col-9
         +boxhead("Danh sách sản phẩm")
+    .card.mb-3
+      .card-header
+        .card-body 
+          .row
+            .col-4
+              +sort()
     .row
       each item in product
         .produc-titem

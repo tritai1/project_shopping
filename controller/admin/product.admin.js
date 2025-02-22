@@ -1,7 +1,9 @@
 const Product = require('../../model/product.modle') // nhũng modle để lấy ra data base
+const ProductCategory = require('../../model/product-category.model') // nhúng modle để lấy ra database
 const buttonHelper = require('../../helper/hellper.button'); // nhũng tính năng bộ lọc vào tại vì đã tách ra 1 file để có thẻ dùng chung 
 const searchHelper = require('../../helper/search.helper'); // nhúng tính năng tìm kiếm vào trong cotroller vì đã tách ra thì một file để khi dùng thì lấy ra dùng không phải code lại
 const systemConfig = require('../../config/system');
+const hellperTree = require('../../helper/category');
 // GET: /admin/product
 module.exports.product= async(req, res)=>{
   
@@ -45,14 +47,14 @@ module.exports.product= async(req, res)=>{
 
     let ojectPanigation = {
         currentPage: 1,
-        itemPage: 4,
+        itemPage: 6,
     }
 
     if(req.query.page){
         ojectPanigation.currentPage = parseInt(req.query.page)  // khi gán bình thường thì nó trả ra kiểu chuỗi/ ta dùng hàm parseInt để ép kiểu cho nó thì kiểu Number
     }
     
-    ojectPanigation.skip = (ojectPanigation.currentPage - 1) *4;
+    ojectPanigation.skip = (ojectPanigation.currentPage - 1) *6;
     console.log(ojectPanigation.skip);
 
          // lấy ra số sản phẩm trong database
@@ -61,7 +63,14 @@ module.exports.product= async(req, res)=>{
     const totalPage = Math.ceil(ojectProduct.length/ojectPanigation.itemPage); // tính ra số trang có dựa trên só sản phẩm đang được lấy trên giao diện 
     ojectPanigation.totalPage = totalPage;
     
-    const product = await Product.find(find).sort({position: "desc"}).limit(ojectPanigation.itemPage).skip(ojectPanigation.skip);  // hàm limit dùng để lấy số phần tử tối đa trong trang  
+    const sort = {};
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
+
+    const product = await Product.find(find).sort(sort).limit(ojectPanigation.itemPage).skip(ojectPanigation.skip);  // hàm limit dùng để lấy số phần tử tối đa trong trang  
                                                                              // hàm skip giúp bỏ qua số sản phẩm đã lấy của trang 1 và lấy từ vị trí tiếp theo của sản phẩm cuối cùng của trang 1
     const priceNew = product.map(item=>{
         item.discountPercentage = (item.price - (100 - item.discountPercentage)/100).toFixed(0);
@@ -143,14 +152,14 @@ module.exports.recycle = async (req, res)=>{
     }
     let ojectPanigation = {
         currentPage: 1,
-        itemPage: 4,
+        itemPage: 8,
     }
 
     if(req.query.page){
         ojectPanigation.currentPage = parseInt(req.query.page)  // khi gán bình thường thì nó trả ra kiểu chuỗi/ ta dùng hàm parseInt để ép kiểu cho nó thì kiểu Number
     }
     
-    ojectPanigation.skip = (ojectPanigation.currentPage - 1) *4;
+    ojectPanigation.skip = (ojectPanigation.currentPage - 1) *8;
     console.log(ojectPanigation.skip);
 
 
@@ -200,14 +209,24 @@ module.exports.changeRecycleStatus = async (req, res)=>{
 }
 
 // tính năng tạo mới sản phẩm 
-module.exports.create = (req, res)=>{
+module.exports.create = async (req, res)=>{
+     
+    const find = {
+        deleted: false
+    };
+
+    const category = await ProductCategory.find(find);
+
+    const newCategory = hellperTree.tree(category);
+
     res.render("admin/page/product/create.pug", {
         title: "create",
+        category: newCategory,
     })
 }
 
 // luu san pham tao moi vao database
-module.exports.createProduct = async (req, res)=>{
+module.exports.createProduct = async (req, res)=>{    
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
@@ -230,15 +249,24 @@ module.exports.createProduct = async (req, res)=>{
 
 module.exports.editProduct = async (req, res)=>{    
     try {
+
+        const finds = {
+            deleted: false
+        };
+        const category = await ProductCategory.find(finds);
         const find = {
             deleted: false,
             _id: req.params.id
         }
         const product = await Product.findOne(find);
+
+        const newCategory = hellperTree.tree(category);
+
         console.log(product);
         res.render("admin/page/product/edit.pug",{
             title: "edit",
-            product: product
+            product: product,
+            category: newCategory,
         })
     } catch (error) {
         res.redirect(`${systemConfig.firstPath}/product`)
@@ -252,11 +280,6 @@ module.exports.editPath = async (req, res)=>{
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
     req.body.position = parseInt(req.body.position);
-
-    if (req.file){
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
-    
     try {
         await Product.updateOne({_id: id}, req.body);
         req.flash("success", "Cap nhat thanh cong")
@@ -283,7 +306,7 @@ module.exports.detail = async (req, res)=>{
         })
     } catch (error) {
         console.log(error);
-        
+        res.redirect(`${systemConfig.firstPath}/product`)
     }
 }
 //note (hàm sort({key: "asc"//sắp xếp tăng dần "desc"// giảm dần }))
