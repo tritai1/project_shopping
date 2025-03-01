@@ -1,0 +1,57 @@
+extends ../../layout/layout.pug
+include ../../mixin/alert.pug
+block mains
+    if(role.rolePower.includes('account-edit'))
+      main.content
+        +alert-error(5000)
+        h1 Chỉnh sửa Tài khoản
+        form(action=`${variableAll}/account/edit/${data.id}?_method=PATCH`, method="POST", enctype="multipart/form-data")
+          .form-group
+            label(for="fullName") Tên tài khoản
+            input#fullName.form-control(type="text", name="fullName", required, placeholder="Nhập tên tài khoản", value=`${data.fullName}`)
+          
+          .form-group
+            label(for="email") Email
+            input#email.form-control(type="email", name="email", required, placeholder="Nhập email", value=`${data.email}`)
+          
+          .form-group
+            label(for="phoneNumber") Số điện thoại
+            input#phoneNumber.form-control(type="tel", name="phoneNumber", required, placeholder="Nhập số điện thoại", value=`${data.phoneNumber}`)
+          
+          .form-group
+            label(for="passWord") Mật khẩu
+            input#passWord.form-control(type="password", name="passWord", placeholder="Nhập mật khẩu", value="")
+          
+          .form-group
+            label(for="roleId") Phân quyền
+            select#roleId.form-control(name="roleId", required)
+              option(value="", disabled, selected) -- Chọn --
+              each item in role
+                option(value=item.id selected=(item.id == data.roleId ? true : false)) #{item.title}      
+          
+          .form-group
+            label(for="avatar") Ảnh đại diện
+            input#avatar.form-control-file(type="file", name="avatar", accept="image/*", update-img)
+            img(uploads-img-preview, width="100px", height="auto", src=`${data.avatar}`)
+            button.alert-danger(type="button" data-delete-img) x
+          
+          div(class="form-group form-check form-check-inline")
+            input(type="radio"
+                  class="form-check-input"
+                  id="statusActive"
+                  name="status"
+                  value="active"
+                  checked=(data.status == "active" ? true : false))
+            label(for="statusActive" class="form-check-label") Hoạt động
+          
+          div(class="form-group form-check form-check-inline")
+            input(type="radio"
+                  class="form-check-input"
+                  id="statusInActive"
+                  name="status"
+                  value="inactive"
+                  checked=(data.status == "inactive" ? true : false))
+            label(for="statusInActive" class="form-check-label") Dừng hoạt động  
+          
+          .form-group
+            button.btn.btn-primary(type="submit") Chỉnh sửa

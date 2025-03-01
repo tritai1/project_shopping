@@ -1,0 +1,54 @@
+extends ../../layout/layout.pug
+include ../../mixin/alert.pug
+include ../../mixin/selected-tree.pug
+
+block mains
+  main.content
+    +alert-error(5000)
+    h1 Tạo mới tài khoản
+
+    if data && data.length > 0
+      form(action=`${variableAll}/account/create`, method="POST", enctype="multipart/form-data")
+        .form-group
+          label(for="fullName") Tên tài khoản
+          input#fullName.form-control(type="text", name="fullName", required, placeholder="Nhập tên tài khoản")
+        
+        .form-group
+          label(for="email") Email
+          input#email.form-control(type="email", name="email", required, placeholder="Nhập email")
+        
+        .form-group
+          label(for="phoneNumber") Số điện thoại
+          input#phoneNumber.form-control(type="tel", name="phoneNumber", required, placeholder="Nhập số điện thoại")
+        
+        .form-group
+          label(for="passWord") Mật khẩu
+          input#passWord.form-control(type="password", name="passWord", required, placeholder="Nhập mật khẩu")
+        
+        .form-group
+          label(for="roleId") Phân quyền
+          select#roleId.form-control(name="roleId", required)
+            option(value="", disabled, selected) -- Chọn --
+            each item in data
+              option(value=item.id) #{item.title}      
+        
+        .form-group(form-change-multi)
+          label(for="avatar") Ảnh đại diện
+          input#avatar.form-control-file(type="file", name="avatar", accept="image/*", update-img)
+          img(uploads-img-preview, width="100px", height="auto")
+          button.alert-danger(type="button", delete-img) x
+        
+        .form-group
+          label(for="status") Trạng thái
+          select#status.form-control(name="status", required)
+            option(value="active") Active
+            option(value="inactive") Inactive
+        
+        .form-group
+          button.btn.btn-primary(type="submit") Tạo mới
+    else
+      p Không nhóm quyền nào tồn tại 
+      a(
+        href=`${variableAll}/rolePower/create`
+        class="btn btn-sm ml-1 btn-outline-success"
+      ) Tạo nhóm quyền

@@ -2,9 +2,11 @@ extends ../../layout/layout.pug
 include ../../mixin/alert.pug
 block mains
   main.content
+   if(role.rolePower.includes('permission-view'))
     h1.col-4 Phân quyền
     +alert-success(5000)
     +alert-error(5000)
+    div(data-record=data)
     if data
       div.text-right.mb-3
         button(class="btn btn-primary" type="submit" button-submit ) Cập nhật
@@ -15,12 +17,15 @@ block mains
             each item in data
               th.text-center #{item.title}
         tbody
-          tr(data-name="id")
+          tr(data-name="id" class="d-none")
            td
            each item in data
-            td(class="text-center" display="none")
+            td(class="text-center" )
               input(type="text" value=item.id )
-          tr
+          
+          //- danh mục sản phẩm
+
+          tr 
             td(colspan="3")
               b Danh mục sản phẩm
           tr(data-name="product-category-view")
@@ -43,6 +48,102 @@ block mains
             each item in data
               td.text-center
                 input(type="checkbox")
+          //- sản phẩm
+          tr 
+            td(colspan="3")
+              b Sản phẩm
+          tr(data-name="product-view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-create")
+            td Tạo mới
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="product-edit")
+            td Sửa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          //- thùng rác
+          tr 
+            td(colspan="3")
+              b Thùng rác
+          tr(data-name="recycel-view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="recyce-update")
+            td Cập nhật
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="recycel-delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          //- nhóm quyền 
+          tr 
+            td(colspan="3")
+              b Nhóm quyền
+          tr(data-name="permission-view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="permission-create")
+            td Tạo mới
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="permission-delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="permission-edit")
+            td Sửa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="role-permission")
+            td Phân quyền
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          //- account
+          tr 
+            td(colspan="3")
+              b Tài khoản
+          tr(data-name="account-view")
+            td Xem
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="account-create")
+            td Tạo mới
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="account-delete")
+            td Xóa
+            each item in data
+              td.text-center
+                input(type="checkbox")
+          tr(data-name="account-edit")
+            td Sửa
+            each item in data
+              td.text-center
+                input(type="checkbox")
     else
       p Không có quyền nào tồn tại
       .col-4 
@@ -52,6 +153,6 @@ block mains
   form(id="form-change-permission"
         method="POST"
         action=`${variableAll}/rolePower/permission?_method=PATCH`)
-    div(class="form-group" display="none")
+    div(class="form-group" class="d-none")
       input(type="text" name="permission" class="form-control") 
   script(src="/admin/js/rolePermission.js")

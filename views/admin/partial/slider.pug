@@ -3,13 +3,21 @@
     ul 
       li 
         a(href=`${variableAll}/dashboard`) Overview
-      li  
-        a(href=`${variableAll}/product`) Product
-      li  
-        a(href=`${variableAll}/product-category`) product category
-      li  
-        a(href=`${variableAll}/product/recycle`) Recycle
-      li  
-        a(href=`${variableAll}/rolePower`) rights group
-      li  
-        a(href=`${variableAll}/rolePower/permission`) permission
+      if(role.rolePower.includes('product-view'))
+        li  
+          a(href=`${variableAll}/product`) Product
+      if(role.rolePower.includes('product-category-view'))
+        li  
+          a(href=`${variableAll}/product-category`) Product category
+      if(role.rolePower.includes('recycel-view'))
+        li  
+          a(href=`${variableAll}/product/recycle`) Recycle
+      if(role.rolePower.includes('permission-view'))
+        li  
+          a(href=`${variableAll}/rolePower`) Rights group
+      if(role.rolePower.includes('role-permission'))
+        li  
+          a(href=`${variableAll}/rolePower/permission`) Permission
+      if(role.rolePower.includes('account-view'))
+        li  
+          a(href=`${variableAll}/account`) Account

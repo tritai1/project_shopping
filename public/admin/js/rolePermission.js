@@ -41,3 +41,28 @@ if(rolePermission){
         }
     })
 }
+
+//  code hiển thụ tích phần của các checbox phần phân quyền 
+const dataRecord = document.querySelector("[data-record]");
+
+if (dataRecord) {
+    const record = JSON.parse(dataRecord.getAttribute("data-record"));
+    console.log(record);
+
+    const rolePermission = document.querySelector("[table-rolePermission]");
+    
+    if (rolePermission) {
+        record.forEach((record, index) => {
+            const permission = record.rolePower;
+            // console.log(permission);
+
+            permission.forEach((permission) => {
+                
+                const row = rolePermission.querySelector(`[data-name="${permission}"]`);
+                const inputs = row.querySelectorAll("input")[index];
+                inputs.checked = true;                
+                
+            });
+        });
+    }
+}

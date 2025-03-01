@@ -5,41 +5,43 @@ include ../../mixin/table-tree.pug
 include ../../mixin/change-multi.pug
 include ../../mixin/filteringFeature.pug
 block mains 
-  main.content
-    .card.mb-3
-      .card-header Bộ lọc trạng thái
-      .card-body 
-        .row
-          .col-6 
-            +filteringFeature(filteringFeature)
-          .col-6
-            +search(keyword)
-    .card.mb-3
-      .card-header Danh mục
-        .card-body
-          .row 
-            .col-8
-              +changeStatusAll(`${variableAll}/product-category/change-multi?_method=PATCH`)
-            .col-4 
-              a( href =`${variableAll}/product-category/create`
-                class=`btn btn-sm ml-1 btn-outline-success`
-                ) Tạo mới sản phẩm
-        table(
-            class = "table table-hover table-sm"
-                     check-box-multi)
-            thead                               
-              tr 
-                th 
-                  input(type="checkbox" 
-                        name = "checkAll")
-                th STT 
-                th Hình ảnh 
-                th Tiêu đề 
-                th vị trí
-                th Trạng thái 
-                th Hành động
-            tbody 
-             +table-tree(record)
+ if(role.rolePower.includes('product-category-view'))
+    main.content
+      .card.mb-3
+        .card-header Bộ lọc trạng thái
+        .card-body 
+          .row
+            .col-6 
+              +filteringFeature(filteringFeature)
+            .col-6
+              +search(keyword)
+      .card.mb-3
+        .card-header Danh mục
+          .card-body
+            .row 
+              .col-8
+                +changeStatusAll(`${variableAll}/product-category/change-multi?_method=PATCH`)
+              .col-4 
+                if(role.rolePower.includes('product-category-create'))
+                  a( href =`${variableAll}/product-category/create`
+                    class=`btn btn-sm ml-1 btn-outline-success`
+                    ) Tạo mới sản phẩm
+          table(
+              class = "table table-hover table-sm"
+                      check-box-multi)
+              thead                               
+                tr 
+                  th 
+                    input(type="checkbox" 
+                          name = "checkAll")
+                  th STT 
+                  th Hình ảnh 
+                  th Tiêu đề 
+                  th vị trí
+                  th Trạng thái 
+                  th Hành động
+              tbody 
+              +table-tree(record)
               
     +pagination(pagination)
     form(action=""

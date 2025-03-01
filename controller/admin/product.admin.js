@@ -1,5 +1,6 @@
 const Product = require('../../model/product.modle') // nhũng modle để lấy ra data base
 const ProductCategory = require('../../model/product-category.model') // nhúng modle để lấy ra database
+const Account = require('../../model/account.model')
 const buttonHelper = require('../../helper/hellper.button'); // nhũng tính năng bộ lọc vào tại vì đã tách ra 1 file để có thẻ dùng chung 
 const searchHelper = require('../../helper/search.helper'); // nhúng tính năng tìm kiếm vào trong cotroller vì đã tách ra thì một file để khi dùng thì lấy ra dùng không phải code lại
 const systemConfig = require('../../config/system');
@@ -74,7 +75,17 @@ module.exports.product= async(req, res)=>{
                                                                              // hàm skip giúp bỏ qua số sản phẩm đã lấy của trang 1 và lấy từ vị trí tiếp theo của sản phẩm cuối cùng của trang 1
     const priceNew = product.map(item=>{
         item.discountPercentage = (item.price - (100 - item.discountPercentage)/100).toFixed(0);
-    }) 
+    })
+    
+    // lấy ra tên tài khoản tạo và thời gian tạo cụ thể khi tọa 1 sản phẩm
+    for (const products of product) {
+        const user = await Account.findOne({
+            _id: products.createBy.account_id
+        })
+        if(user){
+            products.accountFullName = user.fullName;
+        }
+    }
 
     res.render('admin/page/product/product.pug',{
         title: "product",
@@ -112,7 +123,12 @@ module.exports.changeMulti = async (req, res)=>{
             await Product.updateMany({_id: {$in: ids}}, 
                 {
                     deleted: true,
-                    deletedAt: new Date()
+                    // chỉnh sửa lưu lại thời gian xóa
+                    // deletedAt: new Date()  
+                    deletedBy: {
+                        account_id: res.locals.user.id,
+                        deletedAt: new Date()
+                    }
                 }
             )
             break;
@@ -137,8 +153,24 @@ module.exports.deleteItem = async (req, res)=>{
     await Product.updateOne({_id: id}, 
         {
             deleted: true,
-            deletedAt: new Date()
+            // chỉnh sửa tính năng xóa để lấy ra thời gian và người xóa cụ thể
+            // deleted: new Date() 
+            deletedBy: {
+                account_id: res.locals.user.id,
+                deletedAt: new Date
+            }
         });
+
+    const product = await Product.find({deleted: false})
+    for (const products of product) {
+        const user = await Account.findOne({
+            _id: products.deletedBy.account_id
+        })
+        if(user){
+            products.accountFullName = user.fullName;
+        }
+    }
+    console.log(product);
     
     res.redirect("back");
 }
@@ -236,6 +268,10 @@ module.exports.createProduct = async (req, res)=>{
         req.body.position = productCount + 1;            // ngược lại nếu người dùng nhập thì lấy vị trí đó  
     }else {
         req.body.position = parseInt(req.body.position)
+    }
+
+    req.body.createBy = {
+        account_id: res.locals.user.id
     }
     // if(req.file){
     //   // luu anh vao database

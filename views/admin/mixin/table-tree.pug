@@ -26,7 +26,9 @@ mixin table-tree(items, level = 1)
                     change-id=item.id) Dừng hoạt động
             td 
                 a(href=`${variableAll}/product-category/detail/${item.id}` class="btn btn-outline-info btn-sm") Chi tiết
-                a(href=`${variableAll}/product-category/edit/${item.id}` class="btn btn-warning btn-sm ml-1") Sửa 
-                button(class="btn btn-danger btn-sm ml-1" delete-item data-id=item.id) Xóa
+                if(role.rolePower.includes('product-category-edit'))
+                    a(href=`${variableAll}/product-category/edit/${item.id}` class="btn btn-warning btn-sm ml-1") Sửa 
+                if(role.rolePower.includes('product-category-delete'))
+                     button(class="btn btn-danger btn-sm ml-1" delete-item data-id=item.id) Xóa
         if item.children && item.children.length > 0
           +table-tree(item.children, level + 1) 

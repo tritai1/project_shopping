@@ -1,0 +1,96 @@
+/* Thiết lập chung */
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Khung chứa form */
+.container {
+    max-width: 400px;
+    background: linear-gradient(135deg, #053276, #29054d);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 26px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Ô nhập liệu */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nhãn Email & Mật khẩu */
+label {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Ô nhập */
+input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+}
+
+/* Hiệu ứng khi nhập vào ô input */
+input:focus {
+    border: 2px solid #667eea;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Nút đăng nhập */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #230e62;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #091048;
+}
+
+
+/* Hiệu ứng fade in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

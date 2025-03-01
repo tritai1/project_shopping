@@ -363,3 +363,30 @@ form[form-change-multi] button {
 }
 /* css phẩn tạo mới sản phẩm  */
 /* permission */
+/* account */
+/*logout */
+/* logout */
+.text-right {
+  text-align: right;
+  padding: 10px;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #510c6e, #5d066e);
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(233, 230, 230);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #18031d, #453bff);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+  transform: scale(1.05);
+}

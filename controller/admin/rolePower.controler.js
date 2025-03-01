@@ -1,6 +1,7 @@
 const Role = require("../../model/role-power.modle");
 const variableAll = require("../../config/system");
 const system = require("../../config/system");
+
 module.exports.role = async (req, res)=>{
     const find = {
         deleted: false 

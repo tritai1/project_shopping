@@ -8,6 +8,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
+const moment = require("moment"); // thư viện giúp định dạng thời gian
 const adminRouter = require('./router/admin/index.router'); // nhung router admin vao localhost
 const router = require('./router/client/index.router') //(nhúng file router vào file) bên back end thì chúng ta dùng require thay vì dùng import như ở bên fontend
 const app = express();
@@ -34,7 +35,7 @@ app.set('view engine', 'pug');
 
 // API LOCAL variable
 app.locals.variableAll = systemConfig.firstPath; // app,locals tạo tra các biến toàn cục có thể sử dụng bất cứ đâu trong file pub
-
+app.locals.moment = moment;
 // nhung file tĩnh 
 app.use(express.static(`${__dirname}/public`));
 
@@ -53,3 +54,5 @@ app.listen(port, () => {  // check xem thử ổng 300o0 có được mở hay k
 
 
 
+// authen Là kiểm tra 1 tài khoản đã đăng nhập thành công hay chưa nếu đang nhập thành công mới cho vào trang quản trị
+// author là tra xem 1 tài khoản có những quyền gì và được truy cập vào những quyền nào

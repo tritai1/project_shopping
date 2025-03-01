@@ -24,14 +24,26 @@ const productSchema = new mongoose.Schema({
         slug: "title", 
         unique: true // sử dụng unique để tránh tạo ra hai trường slug trùng nhau nó sẽ tự động random 1 id để không bị trùng lặp
     },
+    createBy: {
+        account_id: String,
+        createAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
     deleted: {
         type: Boolean,
         default: false
     },
-    deletedAt: Date  // tọa thêm trường deletedAt: Date để có thể lấy được thời gian thay đổi trường trong database
+    deletedBy: {
+        account_id: String,  // tọa thêm trường deletedAt: Date để có thể lấy được thời gian thay đổi trường trong database
+        deletedAt: Date
+    },
 },
     { timestamps: true }
 )
+
+//* default chỉ dùng được khi tạo mới một gì đó và không tạo được khi xóa  */
 
 
 const Product = mongoose.model("Product", productSchema, "products")
