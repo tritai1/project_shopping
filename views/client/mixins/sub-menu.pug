@@ -1,0 +1,10 @@
+//- Mixin đệ quy sub-menu
+mixin sub-menu(items, path)
+  ul.list
+    each item in items 
+      li.list-item.level-1
+        a.list-link(href=`${path}/${item.slug}`) #{item.title}
+        
+        if item.children && item.children.length > 0
+          +sub-menu(item.children, path) 
+

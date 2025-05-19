@@ -4,7 +4,7 @@ include ../../mixin/selected-tree.pug
 
 block mains
   main.content
-    if(role.rolePower.includes('product-create'))
+        //- if(role.rolePower.includes('product-create'))
         +alert-error(5000)
         h1 Tạo mới sản phẩm
         form(action=`${variableAll}/product/create` method="POST" enctype="multipart/form-data")
@@ -17,6 +17,25 @@ block mains
                   option(value="") -- Chọn danh mục --   
                     if(category)
                         +selected-tree(category)
+            div.form-group.form-check.form-check-inline
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured1"
+                    name="featured"
+                    value="1"
+                )
+                label(for="featured1" class="form-check-label") Nổi bật
+            div.form-group.form-check.form-check-inline
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="featured0"
+                    name="featured"
+                    value="0"
+                    checked
+                )
+                label(for="featured0" class="form-check-label") Không nổi bật
             div.form-group
                 label(for="description") Mô tả
                 textarea#description(name="description" rows="4" required placeholder="Nhập mô tả" class="form-control")

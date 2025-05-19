@@ -1,0 +1,54 @@
+extends ../../layout/default.pug
+include ../../mixins/ProductFeature.pug
+include ../../mixins/alert.pug
+block main
+  +alert-success(5000)
+  button(class="btn btn-primary" onclick="window.history.back()") Quay lại
+  .cart-container
+    h1.cart-title Chi tiết đơn hàng
+    if cartItem && cartItem.product.length > 0
+      table.cart-table
+        thead
+          tr
+            th STT
+            th Ảnh
+            th Tên
+            th Giá
+            th Số lượng
+            th Tổng tiền
+        tbody
+          each item, index in cartItem.product
+            tr
+              td #{index + 1}
+              td.cart-item-image
+                img(src=item.productInfor.thumbnail, alt=item.productInfor.title)
+              td.cart-item-name #{item.productInfor.title}
+              td.cart-item-price #{item.productInfor.priceNew}
+              td.cart-item-quantity #{item.quantity}
+              td.cart-item-total #{item.totalPrice}₫
+    else
+      .cart-empty
+        h2 Giỏ hàng của bạn đang trống
+        p Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm!
+        a.btn-continue(href="/product") Tiếp tục mua sắm
+    if cartItem && cartItem.product.length > 0
+     .row
+        .card.p-4.my-4.col-12
+            form(action="/checkout/order", method="POST")
+                .form-group
+                    label(for="fullName") Họ tên
+                    input#fullName.form-control(type="text", name="fullName", required)
+
+                .form-group
+                    label(for="phone") Số điện thoại
+                    input#phone.form-control(type="text", name="phone", required)
+
+                .form-group
+                    label(for="address") Địa chỉ
+                    input#address.form-control(type="text", name="address", required)
+
+                .form-group.mt-3
+                    button.btn.btn-primary(type="submit") Đặt hàng
+
+
+  script(src="/js/cart.js") 

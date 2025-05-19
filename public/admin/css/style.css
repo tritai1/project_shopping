@@ -365,12 +365,16 @@ form[form-change-multi] button {
 /* permission */
 /* account */
 /*logout */
-/* logout */
+/* Căn chỉnh phần logout và tài khoản */
 .text-right {
-  text-align: right;
-  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px; /* Khoảng cách giữa các nút */
+  padding-right: 15px;
 }
 
+/* Nút Logout - Giữ nguyên màu */
 .btn-danger {
   background: linear-gradient(135deg, #510c6e, #5d066e);
   border: none;
@@ -383,10 +387,127 @@ form[form-change-multi] button {
   transition: all 0.3s ease-in-out;
   text-decoration: none;
   display: inline-block;
+  min-width: 100px;
+  text-align: center;
 }
 
+/* Hiệu ứng hover cho nút Logout */
 .btn-danger:hover {
   background: linear-gradient(135deg, #18031d, #453bff);
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
   transform: scale(1.05);
+}
+
+/* Nút Tài Khoản (btn-warning đổi thành màu khác) */
+.btn-warring {
+  background: linear-gradient(135deg, #000dff, #651b04); /* Cam - Đỏ */
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Hiệu ứng hover cho nút Tài Khoản */
+.btn-warring:hover {
+  background: linear-gradient(135deg, #e65100, #bf360c); /* Đậm hơn */
+  box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+  transform: scale(1.05);
+}
+
+/* my account */
+body {
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-top: 1rem;
+}
+
+p.text-mute {
+  color: #777;
+  font-size: 1rem;
+}
+
+strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #555;
+}
+
+p.text-secondary {
+  font-size: 0.95rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+hr {
+  margin: 1.5rem 0;
+  border-top: 1px solid #eaeaea;
+}
+
+button.btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+button.btn-primary {
+  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+  border: none;
+}
+
+button.btn-primary:hover {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  box-shadow: 0 8px 20px rgba(78, 84, 200, 0.4);
+}
+
+button.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+}
+
+button.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.d-flex.gap-2 > button {
+  min-width: 120px;
 }

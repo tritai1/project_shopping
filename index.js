@@ -47,12 +47,6 @@ adminRouter(app)
 //gọi router
 router(app);
 
-// app.listen lắng nghe và mở ra cổng 3000
 app.listen(port, () => {  // check xem thử ổng 300o0 có được mở hay không
   console.log(`Example app listening on port ${port}`);
 })
-
-
-
-// authen Là kiểm tra 1 tài khoản đã đăng nhập thành công hay chưa nếu đang nhập thành công mới cho vào trang quản trị
-// author là tra xem 1 tài khoản có những quyền gì và được truy cập vào những quyền nào

@@ -1,6 +1,7 @@
 extends ../../layout/default.pug
-
+include ../../mixins/ProductFeature.pug
 block main 
+  button(class="btn btn-primary" onclick="window.history.back()") Quay lại
   main.product-page
       .product-container
         //- Phần hình ảnh sản phẩm
@@ -15,10 +16,17 @@ block main
 
         //- Phần thông tin sản phẩm
         .product-info
+          .product-category
+            span Danh mục: 
+            if product.category && product.category.slug && product.category.title
+              a(href=`/product/${product.category.slug}`) #{product.category.title}
+            else
+              span Không có danh mục
           h1.product-title #{product.title}
           p.product-rating ⭐⭐⭐⭐⭐ | (4.8/5) | 12 đánh giá | 50 đã bán
-          p.product-price #{product.price}$
-          p.product-discount Giá đã giảm: <span class="discount">#{product.discountPercentage}</span>
+          p.product-price giá cũ: #{product.price}$
+          p.product-price #{product.priceNew}$
+          p.product-discount Giá đã giảm: <span class="discount">#{product.discountPercentage}</span>%
           .product-stock
             span Còn hàng: <b>#{product.stock}</b>
           //- Chọn số lượng
@@ -29,9 +37,18 @@ block main
           //- Nút thao tác
           .product-buttons
             button.buy-now Mua ngay
-            button.add-to-cart Thêm vào giỏ hàng
-
+            form(action=`/cart/add/${product.id}` method="POST")
+                input.form-control.mb-2(
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  max=product.stock
+                )
+                button.btn.btn-success.btn-block(type="submit") Thêm vào giỏ hàng
       //- Thông tin chi tiết sản phẩm
       .product-details
         h2 Thông tin chi tiết
-        p #{product.description}
+        p !{product.description}
+  h2 sản phẩm liên quan
+   +product-feature(relatedProducts)

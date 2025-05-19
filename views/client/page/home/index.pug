@@ -1,6 +1,12 @@
 extends ../../layout/default.pug
+include ../../mixins/ProductFeature.pug
 //- include ../../mixins/item-title.pug
 block main
- div.home 
-    img(src="/img/iphone-16-plus-acv-5-17267149996861917807675-0-47-570-959-crop-17267150098371058117683-1726736475143-1726736476370600206699.webp", alt="") 
-//-  +boxhead("thong tin", "san pham o trang nay la")
+  div.home 
+      img(src="/img/iphone-16-plus-acv-5-17267149996861917807675-0-47-570-959-crop-17267150098371058117683-1726736475143-1726736476370600206699.webp", alt="") 
+  h2
+    | Sản phẩm mới
+  +product-feature(productNew)
+  h2
+    | Sản phẩm nổi bật
+  +product-feature(product)

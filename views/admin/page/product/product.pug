@@ -53,6 +53,7 @@ block mains
                   th Giá 
                   th vị trí
                   th Người tạo
+                  th Người sửa và cập nhật
                   th Trạng thái 
                   th Hành động
               tbody 
@@ -76,8 +77,12 @@ block mains
                        p #{item.accountFullName}
                        +formatDate(item.createBy.createdAt)
                        +formatTime(item.createBy.createdAt)
-
-                       
+                    td
+                       - const updateby = item.updatedBy.slice(-1)[0]
+                       if(updateby)
+                          p #{updateby.accountfullName}
+                          p
+                            +formatDate(updateby.updatedAt)
                     td 
                       if item.status == "active"
                         button(href="" class="badge badge-success" button-status-change 

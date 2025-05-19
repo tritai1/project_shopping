@@ -20,7 +20,6 @@ module.exports.create = async (req, res)=>{
 }
 
 module.exports.createPost = async (req, res)=>{ 
-   console.log(req.body);
    const record = new Role(req.body);
    await record.save();
    res.redirect(`${system.firstPath}/rolePower`)
@@ -41,8 +40,9 @@ module.exports.rolePermission = async (req, res)=>{
 
 module.exports.updatePermission = async (req, res)=>{
     try {
+        console.log(req.body.permission);
+        
         const permissions = JSON.parse(req.body.permission)
-        console.log(permissions);
         for (const item of permissions) {  // sử dụng vòng lặp forof để lặp qua từng phần tử trong mảng 
             await Role.updateOne({_id: item.id}, {rolePower: item.permissions}); // lưu lại vào datadase với id và permission tương ứng 
         }

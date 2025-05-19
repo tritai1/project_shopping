@@ -1,0 +1,69 @@
+extends ../../layout/layout
+include ../../mixin/alert.pug
+block mains
+  main.content
+    +alert-error(5000)
+    +alert-success(5000)
+    form(action=`${variableAll}/my-account/editAccount?_method=PATCH`, method="POST", enctype="multipart/form-data")
+      
+      .form-group
+        label(for="fullName") Tên tài khoản
+        input#fullName.form-control(
+          type="text",
+          name="fullName",
+          placeholder="Nhập tên tài khoản",
+          value=user.fullName
+        )
+      
+      .form-group
+        label(for="email") Email
+        input#email.form-control(
+          type="email",
+          name="email",
+          placeholder="Nhập email",
+          value=user.email
+        )
+      
+      .form-group
+        label(for="phoneNumber") Số điện thoại
+        input#phoneNumber.form-control(
+          type="tel",
+          name="phoneNumber",
+          placeholder="Nhập số điện thoại",
+          value=user.phoneNumber
+        )
+
+      .form-group
+        label(for="phoneNumber") passWord
+        input#phoneNumber.form-control(
+          type="password",
+          name="passWord",
+          value= user.passWord
+        )
+      
+      div(class="form-group" form-change-multi)
+                label(for="avatar") Ảnh đại diện
+                input#avatar(type="file" name="avatar"  placeholder="Nhập URL ảnh đại diện" class="form-control-file" accept="img/*" update-img)
+                img(src=`${user.avatar}`, uploads-img-preview width="100px", height="auto") 
+                button(class="alert-danger" delete-img) x
+      
+      .form-group.form-check.form-check-inline
+        input#statusActive.form-check-input(
+          type="radio",
+          name="status",
+          value="active",
+          checked=user.status === "active"
+        )
+        label.form-check-label(for="statusActive") Hoạt động
+      
+      .form-group.form-check.form-check-inline
+        input#statusInActive.form-check-input(
+          type="radio",
+          name="status",
+          value="inactive",
+          checked=user.status === "inactive"
+        )
+        label.form-check-label(for="statusInActive") Dừng hoạt động  
+      
+      .form-group
+        button.btn.btn-primary(type="submit") Chỉnh sửa

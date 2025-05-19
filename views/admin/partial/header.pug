@@ -9,8 +9,14 @@ header.header
       .col-9
         div(class="text-right")
           a(
+              href=`${variableAll}/my-account`
+              class="btn btn-warring btn-sm"
+          ) #{user.fullName}
+      
+          a(
               href=`${variableAll}/auth/logout`
               class="btn btn-danger btn-sm"
           ) logout
+          
 
              

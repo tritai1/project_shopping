@@ -1,5 +1,5 @@
 extends ../../layout/layout.pug
-
+include ../../mixin/formattime.pug
 block mains
   main.content
     main.product-container
@@ -25,3 +25,6 @@ block mains
         
         p.rating Rating: ⭐⭐⭐⭐☆ (4.5/5)
         a(href=`${variableAll}/product/edit/${product.id}` type="button") Chỉnh sửa 
+        p Lịch sử chỉnh sửa
+          each item, index  in update 
+            p #{index + 1}.  #{item.fullName}

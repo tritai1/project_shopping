@@ -1,0 +1,24 @@
+extends ../../layout/layout
+block mains
+  main.content
+    .container.mt-5
+      .row.justify-content-center
+        .col-md-8
+          .card.profile-card.p-4
+            .text-center.mb-4
+              img.avatar(src=user.avatar, alt="Avatar")
+              h3.mt-3 #{user.fullName}
+              p.text-mute #{role.title}
+            hr
+            .row
+              .col-md-6.mb-3
+                strong Email:
+                p.text-secondary #{user.email}
+              .col-md-6.mb-3
+                strong Số điện thoại:
+                p.text-secondary #{user.phoneNumber}
+            hr
+            .d-flex.justify-content-end.gap-2
+              a(href=`${variableAll}/my-account/editAccount` class="btn btn-primary")
+                 i.bi.bi-pencil-fill.me-2
+                    | Chỉnh sửa      

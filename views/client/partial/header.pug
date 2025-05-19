@@ -1,4 +1,4 @@
-include ../mixins/search.pug
+include ../mixins/sub-menu.pug
 header.header 
   .container 
     .row.align-item-center 
@@ -7,8 +7,10 @@ header.header
           a(href="/")
             img(src="/img/app-store.png", alt="logo")
       .col-3 
-        +search() 
-
+        form(action="/search", method="GET")
+          .form-group.d-flex.mb-0
+            input.form-control(type="text", placeholder="Nhập từ khóa...", name="keyword" value=keyword)
+            button.btn.btn-primary(type="submit") Tìm kiếm
       .col9
         .inner-memu
           ul 
@@ -16,8 +18,16 @@ header.header
               a(href="/") Home
                 img(src="/img/home.png", alt="" width="40" height="40")
             li  
-              a(href="/product") Product
-                img(src="/img/product.png", alt="" width="40" height="40")
+              - const pathProduct = `/product`
+              a(href=pathProduct) Product
+                img(src="/img/product.png", alt="Product" width="40" height="40")
+              +sub-menu(productCategory, pathProduct) 
             li 
-              a(href="/cart") 
+              a(href="/cart") Cart (#{minicart ? minicart.totalQuantity : "0"})
                 img(src="/img/cart.png", alt="" width="40" height="40")
+            li 
+              a(href="/blog") Blog
+                img(src="/img/blog.png", alt="" width="40" height="40")
+            li 
+              a(href="/login") login/register
+                img(src="/img/admin.png", alt="" width="40" height="40")

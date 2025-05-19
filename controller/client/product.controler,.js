@@ -4,8 +4,10 @@
 // nhung model vào de render ra do dien
 
 const Product = require("../../model/product.modle");
-
+const piceHelper = require("../../helper/product.priceNew")
 const srearchHelper = require("../../helper/search.helper")
+const ProductCategory = require("../../model/product-category.model")
+const productCategoryHelper = require("../../helper/product-category")
 
 module.exports.product = async (req, res) => {  
 
@@ -34,7 +36,7 @@ module.exports.product = async (req, res) => {
     
     let ojectPage = {
         currentPage: 1,
-        itemPage: 6
+        itemPage: 12
     }
     
     if (req.query.page){
@@ -44,7 +46,7 @@ module.exports.product = async (req, res) => {
     console.log(ojectPage.itemPage);
 
        // tinh de lay ra 6 san pham trong 1 trang
-    ojectPage.skip = (ojectPage.currentPage-1)*6;
+    ojectPage.skip = (ojectPage.currentPage-1)*12;
        // tính để lấy ra số trang
     const products = await Product.find(find);
     const totalPage =  Math.ceil(products.length/ojectPage.itemPage);
@@ -63,50 +65,97 @@ module.exports.product = async (req, res) => {
         return item;                                                                            // ham toFixed giup loai bo cac dau sau dau phay      
     })
 
-
-
-    
     // console.log(newProducts);
-    
     res.render("client/page/products/index.pug", {
         title: "products",
         "product": newProducts,
         keyWord: search.keyword,
         pagination: ojectPage
-    }) 
-
-
-    
-}
-
-module.exports.add = (req, res) => { 
-    res.render("client/page/products/index.pug", {
-        title: "add",
-        messages: "thêm cả các sản phẩm"
-    }) 
-}
-
-module.exports.delete = (req, res) => { 
-    res.render("client/page/products/index.pug", {
-        title: "delete",
-        messages: "xóa cả các sản phẩm"
-    }) 
+    })  
 }
 
 module.exports.detail = async (req, res)=>{
     try {
         const find = {
             deleted: false,
-            slug: req.params.slug,
+            slug: req.params.slugProduct,
             status: "active"
         }
         const product = await Product.findOne(find);
-        res.render("client/page/products/detail.pug", {
-            title: product.title,
-            product: product
+        
+        if(product.product_category_id){
+            const category = await ProductCategory.findOne({
+                _id: product.product_category_id,
+                deleted: false,
+                status: 'active'
+            })
+
+            product.category = category || null;
+        }
+        
+        const products = await Product.find({
+            featured: "1",
+            deleted: false,
+            status: "active"
         })
+        product.priceNew = piceHelper.productPriceNew(product);
+ 
+        res.render("client/page/products/detail.pug", {
+            title: product.slug,
+            product: product,
+            relatedProducts: products
+        })
+
+        
         
     } catch (error) {
-       res.redirect("/product")        
+       res.redirect("/product", error)        
+    }
+}
+
+
+module.exports.slugCategory = async (req, res)=>{
+    try {
+        console.log(req.params.slug);
+        const category = await ProductCategory.findOne({
+            slug: req.params.slug,
+            deleted: false
+        })
+        let ojectPage = {
+            currentPage: 1,
+            itemPage: 6
+        }
+        
+        if (req.query.page){
+            ojectPage.currentPage = parseInt(req.query.page); // chuyển đổi thành kiểu number
+        }
+
+        // tinh de lay ra 6 san pham trong 1 trang
+        ojectPage.skip = (ojectPage.currentPage-1)*6;
+        // tính để lấy ra số trang
+        const products = await Product.find({  // Tìm ra sản phẩm tương ứng với mỗi danh mục
+            product_category_id: category.id,
+            deleted: false
+        });
+        const totalPage =  Math.ceil(products.length/ojectPage.itemPage);
+        ojectPage.totalPage = totalPage;
+
+        const listCategory = await productCategoryHelper.getSubCategory(category.id)
+        const listCategoryId = listCategory.map(item => item.id);
+        console.log(listCategoryId);
+        
+        const product = await Product.find({
+            product_category_id: {$in: [category.id, ...listCategoryId]},
+            deleted: false
+        }).sort({position: "desc"}).limit(ojectPage.itemPage).skip(ojectPage.skip)
+
+        const productNew = piceHelper.productFeature(product)
+        res.render("client/page/products/index.pug", {
+            title: category.title,
+            "product": productNew,
+            pagination: ojectPage
+    }) 
+    } catch (error) {
+        res.redirect("/home")
     }
 }

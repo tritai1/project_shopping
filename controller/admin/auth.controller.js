@@ -1,7 +1,6 @@
 const Account = require("../../model/account.model");
 const md5 = require('md5');
 const systemConfig = require("../../config/system");
-const system = require("../../config/system");
 module.exports.login = (req, res)=>{
     if(req.cookies.token){ // đã đang nhập mà vẫn cố tình vào đường dẫn login thì sễ về trang dashboard
       res.redirect(`${systemConfig.firstPath}/dashboard`)
@@ -14,7 +13,6 @@ module.exports.login = (req, res)=>{
 
 module.exports.loginPost = async (req, res)=>{
    
-    console.log(req.body);
     const email = req.body.email;
     const passWord = req.body.password;
 
@@ -38,7 +36,6 @@ module.exports.loginPost = async (req, res)=>{
         return;
     }
     
-    console.log(passWord);
     res.cookie("token", user.token);
     res.redirect(`${systemConfig.firstPath}/dashboard`)
 }

@@ -30,9 +30,8 @@ module.exports.systemAuth = async (req, res, next)=>{ // cách chặn khi ngư�
                     _id: user.roleId
                 }).select("title rolePower")  // lệnh select sẽ giúp hiện thị data mà ta mong muốn bằng cách ghi tên các fiedl vào 
                 res.locals.user = user; 
-                res.locals.role = role; 
-
-                next()
+                res.locals.role = role;                 
+                next()   
             }
     
         }   

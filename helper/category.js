@@ -21,3 +21,40 @@ module.exports.tree = (arr, parentId = "")=>{
     const tree = create_tree(arr, parentId = "");
     return tree;
 }
+
+// cây danh mục
+function createTree1(arr, parentId = "") {
+    let index = 0;
+
+    const buildTree = (items, parent) => {
+        const tree = [];
+        items.forEach(item => {
+            if (item.parent_id === parent) {
+                index++;
+                const newItem = {
+                    id: item.id,
+                    name: item.title,       // Hoặc item.name tùy theo DB
+                    slug: item.slug || '',  // Hoặc tạo slug từ title
+                    parent_id: item.parent_id,
+                    index: index,
+                    children: []
+                };
+
+                // Đệ quy tìm con
+                const children = buildTree(items, item.id);
+                if (children.length > 0) {
+                    newItem.children = children;
+                }
+
+                tree.push(newItem);
+            }
+        });
+        return tree;
+    };
+
+    return buildTree(arr, parentId);
+}
+
+module.exports.tree1 = (arr, parentId = "") => {
+    return createTree1(arr, parentId);
+};

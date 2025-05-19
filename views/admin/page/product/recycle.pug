@@ -28,6 +28,7 @@ block mains
                         td #{item.title}
                         td #{item.price}
                         td 
+                           p #{item.accountFullName}
                            +formatTime(item.deletedBy.deletedAt)
                         td 
                             if item.status == "active"

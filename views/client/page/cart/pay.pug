@@ -1,0 +1,46 @@
+extends ../../layout/default.pug
+block main 
+   h2(style="color: green") Đặt hàng thành công
+      .success
+        | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất.
+
+      h3 Thông tin cá nhân
+      each item, index in order.user_infor 
+        table
+          tr
+            td Họ tên
+            td.bold #{item.fullName}
+          tr
+            td Số điện thoại
+            td.bold #{item.phone}
+          tr
+            td Địa chỉ
+            td.bold #{item.address}
+
+      h3 Thông tin đơn hàng
+      each item, index in order.product
+        table
+          thead
+            tr
+              th STT
+              th Ảnh
+              th Tên
+              th Giá
+              th Số lượng
+              th giam gia
+              th Tổng tiền
+          tbody
+            tr
+              td #{index + 1}
+              td 
+                img(src=item.productInfor.thumbnail, width="40")
+              td #{item.productInfor.title}
+              td #{item.price}
+              td #{item.quantity}
+              td #{item.discountPercentage}
+              td #{item.totalPrice}
+      .right Tổng tiền: #{order.totalPrice}₫
+      .cart-empty
+        h2 Giỏ hàng của bạn đang trống
+        p Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm!
+        a.btn-continue(href="/product") Tiếp tục mua sắms

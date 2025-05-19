@@ -1,0 +1,14 @@
+mixin product-feature(product)
+   .container.my-3
+    .row
+      each item in product
+        .produc-titem
+          a(href=`/product/detail/${item.slug}`) 
+            .inner-img
+              img(src=`${item.thumbnail}`, alt="phone 16 price")
+            .inner-content
+              h3.inner-title #{item.title}
+              .inner-descriptiom !{item.description}
+              .inner-price-new #{item.priceNew}
+              .inner-price-old #{item.price}
+              .inner-discount #{item.discountPercentage}%

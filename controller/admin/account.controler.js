@@ -78,7 +78,7 @@ module.exports.edit = async(req, res)=>{
         res.render("admin/page/account/edit.pug",{
             title: "edit",
             data: account,
-            role: roles
+            roles: roles
         })
     } catch (error) {
         res.redirect(`${systemConfig.firstPath}/account`)
@@ -89,52 +89,60 @@ module.exports.edit = async(req, res)=>{
 
 // chỉnh sủa tài khoản 
 module.exports.editPath = async (req, res)=>{
+
     try {
-
         const id = req.params.id;
-        // kiêm tra nếu tồn tại email thì không cho nhập
-        const emailExist = await Account.findOne({
-            _id: {$ne: id}, 
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber,
+    
+        // Kiểm tra email hoặc số điện thoại đã tồn tại chưa (ngoại trừ chính bản ghi hiện tại)
+        const accountExist = await Account.findOne({
+            _id: { $ne: id },
+            $or: [
+                { email: req.body.email },
+                { phoneNumber: req.body.phoneNumber }
+            ],
             deleted: false
-        })
-
-        if(emailExist){
-            req.flash("error", `Đã tồn tại email: ${req.body.email} hoặc SĐT: ${req.body.phoneNumber}`)
-            res.redirect("back")
+        });
+    
+        if (accountExist) {
+            req.flash("error", `Email: ${req.body.email} hoặc SĐT: ${req.body.phoneNumber} đã tồn tại.`);
+            return res.redirect("back");
+        }
+    
+        // Xử lý mật khẩu
+        if (req.body.passWord && req.body.passWord.trim() !== "") {
+            req.body.passWord = md5(req.body.passWord);
         } else {
-            if (req.body.passWord){  // bắt mật khẩu khi không nhập mk mới tự động giữ mk cũ và chỉ lưu những trường mới được cập nhật
-                req.body.passWord = md5(req.body.passWord);
-            }else { // nếu nhập mật khẩu mới thì tự động xóa mk cũ 
-                delete req.body.passWord;
-            }
-        } 
-        
-        await Account.updateOne({_id: id}, req.body);
-        res.redirect(`${systemConfig.firstPath}/account`)
+            delete req.body.passWord; // Không cập nhật mật khẩu nếu không nhập mới
+        }
+    
+        // Cập nhật tài khoản
+        await Account.updateOne({ _id: id }, req.body);
+    
+        req.flash("success", "Cập nhật tài khoản thành công.");
+        res.redirect(`${systemConfig.firstPath}/account`);
     } catch (error) {
-        res.redirect(`${systemConfig.firstPath}/account/edit`, error);
+        console.error("Lỗi khi cập nhật tài khoản:", error);
+        req.flash("error", "Đã xảy ra lỗi khi cập nhật tài khoản.");
+        res.redirect(`${systemConfig.firstPath}/account/edit/${req.params.id}`);
     }
+    
 }
 
 module.exports.detail = async (req, res)=>{
     try {
         const id = req.params.id
-        console.log(id);
         
         const find ={ 
             deleted: false,
             _id: id
         }
         const account = await Acount.findOne(find)
-        console.log(account);
         
         const role = await Role.findOne(find);
         res.render("admin/page/account/detail.pug", {
             title: "detail",
             data: account,
-            role: role
+            roles: role
         })
     } catch (error) {
         // console.log(error);

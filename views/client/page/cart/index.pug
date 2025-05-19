@@ -1,0 +1,43 @@
+extends ../../layout/default.pug
+include ../../mixins/ProductFeature.pug
+include ../../mixins/alert.pug
+block main
+  +alert-success(5000)
+  .cart-container
+    h1.cart-title Giỏ hàng của bạn
+    if cartItem && cartItem.product.length > 0
+      table.cart-table
+        thead
+          tr
+            th STT
+            th Ảnh
+            th Tên
+            th Giá
+            th Số lượng
+            th Tổng tiền
+        tbody
+          each item, index in cartItem.product
+            tr
+              td #{index + 1}
+              td.cart-item-image
+                img(src=item.productInfor.thumbnail, alt=item.productInfor.title)
+              td.cart-item-name 
+                a(href=`/product/detail/${item.productInfor.slug}`) #{item.productInfor.title}
+              td.cart-item-price #{item.productInfor.priceNew}
+              td.cart-item-quantity
+                input(type="number",name="quantity", value=item.quantity, min="1", product-id=item.product_id, style="width: 60px")
+                td.cart-item-total #{item.totalPrice}₫
+              td.cart-item-action
+                a(href=`/cart/delete/${item.product_id}` class = "btn btn-danger") Xóa
+      .cart-summary
+        h2 Tổng đơn hàng: #{cartItem.totalPrice}₫
+        a(href="/checkout" class="btn btn-danger") Thanh toán
+
+    else
+      .cart-empty
+        h2 Giỏ hàng của bạn đang trống
+        p Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm!
+        a.btn-continue(href="/product") Tiếp tục mua sắm
+  h2 sản phẩm liên quan
+   +product-feature(relatedProducts)
+  script(src="/js/cart.js") 

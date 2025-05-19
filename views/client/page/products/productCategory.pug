@@ -1,0 +1,48 @@
+extends ../../layout/default.pug
+
+block main 
+ mains.content
+   aside.sidebar
+      ul
+        li.menu-title Sản Phẩm
+        li.menu-item NEW ARRIVAL
+        li.menu-item DIRTYCOINS | DRAGON BALL Z
+        li.menu-item BEST SELLER
+        li.menu-item SPECIAL OFFER
+        li.menu-item TOPS
+        li.menu-sub
+          ul
+            li T-SHIRTS
+            li SHIRTS
+            li JERSEY
+            li POLOS
+        li.menu-item OUTERWEAR
+        li.menu-sub
+          ul
+            li SWEATERS & CARDIGANS
+            li SWEATSHIRTS & HOODIES
+            li JACKETS
+        li.menu-item BOTTOMS
+        li.menu-sub
+          ul
+            li PANTS
+            li SHORTS
+        li.menu-item WOMENSWEAR
+   main.container
+      .product-grid 
+          .card
+            figure
+              img(src="", )
+            .card-body
+              h3.card-title 
+              .card-price
+                span.price 
+                //- if product.discount
+                  span.discount 
+              .card-rating
+                span ⭐ 
+                span.sold 
+   footer.pagination
+      button.page-btn ←
+      span.page-number 1 / 6
+      button.page-btn →

@@ -21,24 +21,6 @@ if(buttonStatusChange.length > 0){
     }) 
 }
 
-// tính năng xóa 
-const deleteItem = document.querySelectorAll("[delete-item]");
-if(deleteItem.length > 0 ){
-   deleteItem.forEach(button => {
-    const formDelete = document.querySelector("#form-delete");
-    const path = formDelete.getAttribute("path");
-    button.addEventListener("click", ()=>{
-        const id = button.getAttribute("data-id");
-        console.log(id);
-        const action = path + `/${id}?_method=PATCH`;
-        console.log(action);
-        formDelete.action = action;
-        formDelete.submit();
-    })
-   })
-    
-}
-
 // tinh nang xap xep theo tieu chi
 const sort = document.querySelectorAll("[sort]");
 if(sort.length > 0){

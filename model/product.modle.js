@@ -12,12 +12,12 @@ const productSchema = new mongoose.Schema({
     },
     description: String,
     price: Number,
-    discountPercentage: Number,
     stock: Number,
     discountPercentage: Number,
     stock: Number,
     thumbnail: String,
     status: String,
+    featured: String,
     position: Number,
     slug: {           // tạo thêm trường slug để chúng ta có thể lưu trường slug trên url nhứ tên sản phẩm tên các mục bên trang client
         type: String,
@@ -39,6 +39,12 @@ const productSchema = new mongoose.Schema({
         account_id: String,  // tọa thêm trường deletedAt: Date để có thể lấy được thời gian thay đổi trường trong database
         deletedAt: Date
     },
+    updatedBy: [
+        {
+          account_id: String,  // tọa thêm trường deletedAt: Date để có thể lấy được thời gian thay đổi trường trong database
+          updateAt: Date
+        }
+    ]
 },
     { timestamps: true }
 )

@@ -1,16 +1,17 @@
-/* Tổng quát */
+header.header {
+  position: fixed;    /* Cố định vị trí */
+  top: 0;             /* Cách top 0px */
+  left: 0;
+  width: 100%;        /* Chiều rộng toàn màn hình */
+  background-color: #fff;  /* Màu nền, tùy chỉnh theo thiết kế */
+  z-index: 1000;      /* Đảm bảo header nổi trên các phần tử khác */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ cho đẹp */
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Header */
-  header.header {
-    background-color: #f8f9fa; /* Màu nền nhạt */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng */
-    padding: 10px 0;
-  }
+  padding-top: 80px;  /* Khoảng cách bằng chiều cao header để không che mất nội dung */
+}
+
   
   header .container {
     width: 90%;
@@ -409,3 +410,303 @@ button.add-to-cart:hover {
   line-height: 1.6;
 }
 
+/* Product Reviews */
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+a:hover {
+  background: #eee;
+}
+
+/* --- BẮT ĐẦU TỪ PRODUCT --- */
+li {
+  position: relative;
+}
+
+/* Menu cấp 1 (ẩn khi chưa hover vào Product) */
+li > ul.list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  width: 200px;
+  border: 1px solid #ddd;
+  z-index: 10;
+}
+
+/* Hover vào Product -> hiện menu cấp 1 */
+li:hover > ul.list {
+  display: block;
+}
+
+/* Các item cấp 1 */
+li.list-item.level-1 {
+  position: relative;
+}
+
+/* Menu con cấp 2 (ẩn mặc định) */
+li.list-item.level-1 > ul.list {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ddd;
+  z-index: 20;
+}
+
+/* Hover vào mục cấp 1 -> hiện menu cấp 2 */
+li.list-item.level-1:hover > ul.list {
+  display: block;
+}
+
+/* Menu con cấp 3 */
+li.list-item.level-2 {
+  position: relative;
+}
+
+li.list-item.level-2 > ul.list {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ddd;
+  z-index: 30;
+}
+
+li.list-item.level-2:hover > ul.list {
+  display: block;
+}
+
+/* cart */
+/* Container styling */
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2ecc71;
+}
+
+/* Table styling */
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.cart-table thead th {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.cart-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-item-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cart-item-price,
+.cart-item-total {
+  font-size: 16px;
+  color: #e74c3c;
+}
+
+.cart-item-quantity input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.cart-item-action .btn-remove {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-item-action .btn-remove:hover {
+  background-color: #c0392b;
+}
+
+/* Cart summary styling */
+.cart-summary {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.btn-checkout {
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-checkout:hover {
+  background-color: #219150;
+}
+
+/* Empty cart styling */
+.cart-empty {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.cart-empty h2 {
+  font-size: 24px;
+  color: #555;
+}
+
+.cart-empty p {
+  font-size: 16px;
+  color: #777;
+}
+
+.btn-continue {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-continue:hover {
+  background-color: #2980b9;
+}
+
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 9999;
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Hiệu ứng trượt và mờ dần */
+}
+
+/* Hiển thị thông báo (trạng thái mặc định) */
+[show-alert].visible {
+  transform: translateX(0); /* Giữ vị trí ban đầu */
+  opacity: 1;              /* Hiển thị rõ */
+}
+
+/* Ẩn thông báo (trạng thái ẩn) */
+[show-alert].alert-hidden {
+  transform: translateX(100%); /* Trượt ra khỏi màn hình */
+  opacity: 0;                 /* Mờ dần */
+  pointer-events: none;       /* Không cho tương tác */
+}
+
+/* Nút đóng thông báo */
+[show-alert] [close-alert] {
+  background-color: #ffffffc4; /* Nền trắng trong suốt */
+  display: inline-block;       /* Khối dòng */
+  width: 24px;                 /* Chiều rộng nút */
+  height: 24px;                /* Chiều cao nút */
+  line-height: 24px;           /* Căn giữa chữ theo chiều dọc */
+  text-align: center;          /* Căn giữa chữ theo chiều ngang */
+  font-weight: 600;            /* Chữ đậm */
+  border-radius: 50%;          /* Bo tròn góc */
+  cursor: pointer;             /* Con trỏ khi hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+}
+
+
+.success {
+  background-color: #e6ffe6;
+  border: 1px solid #a3d9a5;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  color: #2e7d32;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+  color: #444;
+}
+
+td.bold {
+  font-weight: bold;
+  color: #333;
+}
+
+img {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.right {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a237e;
+  padding-top: 10px;
+  border-top: 2px solid #eee;
+}
